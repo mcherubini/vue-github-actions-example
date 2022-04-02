@@ -86,10 +86,10 @@ jobs:
         include:
         - cypress_container: 
           name: "cypress/browsers:node16.14.0-slim-chrome99-ff97"
-          firefox: "97.0.1"
+          firefox: 97.0.1
         - cypress_container: 
           name: "cypress/browsers:node16.5.0-chrome94-ff93"
-          firefox: "93.0"
+          firefox: 93.0
 
     steps:
     - uses: actions/checkout@v3
@@ -110,8 +110,10 @@ jobs:
     - run: npm run test:e2e:ci:firefox
 
     - uses: actions/upload-artifact@v3
+      env:
+        BROWSER_VERSION: ${{ matrix.cypress_container.firefox }}
       with:
-        name: tests-results-firefox-${{ matrix.cypress_container.firefox }}-e2e
+        name: tests-results-firefox-${{ BROWSER_VERSION }}-e2e
         path: |
           *test-result.xml
 
@@ -125,10 +127,10 @@ jobs:
         include:
         - cypress_container: 
           name: "cypress/browsers:node16.14.0-slim-chrome99-ff97"
-          chrome: "99.0.4844.51"
+          chrome: 99.0.4844.51
         - cypress_container: 
           name: "cypress/browsers:node16.5.0-chrome94-ff93"
-          chrome: "94.0.4606.71"
+          chrome: 94.0.4606.71
 
     steps:
     - uses: actions/checkout@v3
@@ -149,7 +151,9 @@ jobs:
     - run: npm run test:e2e:ci:chrome
 
     - uses: actions/upload-artifact@v3
+      env:
+        BROWSER_VERSION: ${{ matrix.cypress_container.chrome }}
       with:
-        name: tests-results-chrome-${{ matrix.cypress_container.chrome }}-e2e
+        name: tests-results-chrome-${{ BROWSER_VERSION }}-e2e
         path: |
           *test-result.xml
