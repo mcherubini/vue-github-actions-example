@@ -83,6 +83,7 @@ jobs:
 
     strategy:
       matrix:
+        include:
         - cypress_container: 
           name: "cypress/browsers:node16.14.0-slim-chrome99-ff97"
           firefox: 97.0.1
@@ -121,6 +122,7 @@ jobs:
 
     strategy:
       matrix:
+        include:
         - cypress_container: 
           name: "cypress/browsers:node16.14.0-slim-chrome99-ff97"
           chrome: 99.0.4844.51
