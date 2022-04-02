@@ -109,11 +109,12 @@ jobs:
 
     - run: npm run test:e2e:ci:firefox
 
+    - run: echo ::set-output name=browser_name::${{ matrix.cypress_container.firefox }}
+      id: browser
+
     - uses: actions/upload-artifact@v3
-      env:
-        BROWSER_VERSION: ${{ matrix.cypress_container.firefox }}
       with:
-        name: tests-results-firefox-${{ env.BROWSER_VERSION }}-e2e
+        name: tests-results-firefox-${{ steps.browser.outputs.browser_name }}-e2e
         path: |
           *test-result.xml
 
@@ -150,10 +151,11 @@ jobs:
 
     - run: npm run test:e2e:ci:chrome
 
+    - run: echo ::set-output name=browser_name::${{ matrix.cypress_container.chrome }}
+      id: browser
+
     - uses: actions/upload-artifact@v3
-      env:
-        BROWSER_VERSION: ${{ matrix.cypress_container.chrome }}
       with:
-        name: tests-results-chrome-${{ env.BROWSER_VERSION }}-e2e
+        name: tests-results-chrome-${{ steps.browser.outputs.browser_name }}-e2e
         path: |
           *test-result.xml
