@@ -83,13 +83,8 @@ jobs:
 
     strategy:
       matrix:
-        include:
-        - cypress_container: 
-          name: "cypress/browsers:node16.14.0-slim-chrome99-ff97"
-          firefox: 97.0.1
-        - cypress_container: 
-          name: "cypress/browsers:node16.5.0-chrome94-ff93"
-          firefox: 93.0
+        cypress_container: ["cypress/browsers:node16.14.0-slim-chrome99-ff97", "cypress/browsers:node16.5.0-chrome94-ff93"]
+        firefox_version: [97.0.1, 93.0]
 
     steps:
     - uses: actions/checkout@v3
@@ -109,29 +104,21 @@ jobs:
 
     - run: npm run test:e2e:ci:firefox
 
-    - run: echo ::set-output name=browser_name::${{ matrix.cypress_container.firefox }}
-      id: browser
-
     - uses: actions/upload-artifact@v3
       with:
-        name: tests-results-firefox-${{ steps.browser.outputs.browser_name }}-e2e
+        name: tests-results-firefox-${{ matrix.firefox_version }}-e2e
         path: |
           *test-result.xml
 
   ci-e2e-chrome:
     needs: [build]
     runs-on: ubuntu-latest
-    container: ${{ matrix.cypress_container.name }}
+    container: ${{ matrix.cypress_container }}
 
     strategy:
       matrix:
-        include:
-        - cypress_container: 
-          name: "cypress/browsers:node16.14.0-slim-chrome99-ff97"
-          chrome: 99.0.4844.51
-        - cypress_container: 
-          name: "cypress/browsers:node16.5.0-chrome94-ff93"
-          chrome: 94.0.4606.71
+        cypress_container: ["cypress/browsers:node16.14.0-slim-chrome99-ff97", "cypress/browsers:node16.5.0-chrome94-ff93"]
+        chrome_version: [99.0.4844.51, 94.0.4606.71]
 
     steps:
     - uses: actions/checkout@v3
@@ -151,11 +138,8 @@ jobs:
 
     - run: npm run test:e2e:ci:chrome
 
-    - run: echo ::set-output name=browser_name::${{ matrix.cypress_container.chrome }}
-      id: browser
-
     - uses: actions/upload-artifact@v3
       with:
-        name: tests-results-chrome-${{ steps.browser.outputs.browser_name }}-e2e
+        name: tests-results-chrome-${{ matrix.chrome_version }}-e2e
         path: |
           *test-result.xml
