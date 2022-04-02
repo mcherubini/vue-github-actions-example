@@ -92,6 +92,7 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: build-folder
+        path: ./dist
   
     - run: npm ci
 
@@ -109,7 +110,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Use Node.js 16.x
       uses: actions/setup-node@v3
       with:
@@ -119,6 +120,7 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: build-folder
+        path: ./dist
 
     - run: npm ci
 
