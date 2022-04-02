@@ -6,9 +6,10 @@
     "build": "vite build",
     "preview": "vite preview --port 5050",
     "test:e2e": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress open'",
-    "test:e2e:ci": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress run'",
+    "test:e2e:ci:chrome": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress run --browser chrome --reporter junit --reporter-options mochaFile=e2e-chrome-test-result.xml,toConsole=true'",
+    "test:e2e:ci:firefox": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress run --browser firefox --reporter junit --reporter-options mochaFile=e2e-firefox-test-result.xml,toConsole=true'",
     "test:unit": "cypress open-ct",
-    "test:unit:ci": "cypress run-ct --quiet --reporter spec",
+    "test:unit:ci": "cypress run-ct --quiet --reporter junit --reporter-options mochaFile=unit-test-result.xml,toConsole=true",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
