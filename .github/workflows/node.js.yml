@@ -42,6 +42,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v3
+
     - name: Use Node.js 16.x
       uses: actions/setup-node@v3
       with:
@@ -56,6 +58,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v3
 
     - name: Use Node.js 16.x
       uses: actions/setup-node@v3
@@ -78,47 +81,49 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-          cache: 'npm'
+    - uses: actions/checkout@v3
 
-      - uses: actions/download-artifact@v3
-        with:
-          name: build-folder
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+        cache: 'npm'
+
+    - uses: actions/download-artifact@v3
+      with:
+        name: build-folder
   
-      - run: npm ci
+    - run: npm ci
 
-      - run: npm run test:e2e:ci:firefox
+    - run: npm run test:e2e:ci:firefox
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: tests-results-firefox-e2e
-          path: |
-            *test-result.xml
+    - uses: actions/upload-artifact@v3
+      with:
+        name: tests-results-firefox-e2e
+        path: |
+          *test-result.xml
 
   ci-e2e-chrome:
     needs: [build]
     runs-on: ubuntu-latest
 
     steps:
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-          cache: 'npm'
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+        cache: 'npm'
 
-      - uses: actions/download-artifact@v3
-        with:
-          name: build-folder
+    - uses: actions/download-artifact@v3
+      with:
+        name: build-folder
 
-      - run: npm ci
+    - run: npm ci
 
-      - run: npm run test:e2e:ci:chrome
+    - run: npm run test:e2e:ci:chrome
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: tests-results-chrome-e2e
-          path: |
-            *test-result.xml
+    - uses: actions/upload-artifact@v3
+      with:
+        name: tests-results-chrome-e2e
+        path: |
+          *test-result.xml
