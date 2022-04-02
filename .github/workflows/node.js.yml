@@ -33,7 +33,7 @@ jobs:
     - run: npm run test:e2e:ci:chrome
     - run: npm run test:e2e:ci:firefox
     - uses: actions/upload-artifact@v3
-    with:
-      name: tests-results
-      path: |
-        *test-result.xml
+      with:
+        name: tests-results
+        path: |
+          *test-result.xml
