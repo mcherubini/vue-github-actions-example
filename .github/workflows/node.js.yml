@@ -113,7 +113,7 @@ jobs:
       env:
         BROWSER_VERSION: ${{ matrix.cypress_container.firefox }}
       with:
-        name: tests-results-firefox-${{ BROWSER_VERSION }}-e2e
+        name: tests-results-firefox-$BROWSER_VERSION-e2e
         path: |
           *test-result.xml
 
@@ -154,6 +154,6 @@ jobs:
       env:
         BROWSER_VERSION: ${{ matrix.cypress_container.chrome }}
       with:
-        name: tests-results-chrome-${{ BROWSER_VERSION }}-e2e
+        name: tests-results-chrome-$BROWSER_VERSION-e2e
         path: |
           *test-result.xml
