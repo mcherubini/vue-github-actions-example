@@ -86,10 +86,10 @@ jobs:
         include:
         - cypress_container: 
           name: "cypress/browsers:node16.14.0-slim-chrome99-ff97"
-          firefox: 97.0.1
+          firefox: "97.0.1"
         - cypress_container: 
           name: "cypress/browsers:node16.5.0-chrome94-ff93"
-          firefox: 93.0
+          firefox: "93.0"
 
     steps:
     - uses: actions/checkout@v3
@@ -125,10 +125,10 @@ jobs:
         include:
         - cypress_container: 
           name: "cypress/browsers:node16.14.0-slim-chrome99-ff97"
-          chrome: 99.0.4844.51
+          chrome: "99.0.4844.51"
         - cypress_container: 
           name: "cypress/browsers:node16.5.0-chrome94-ff93"
-          chrome: 94.0.4606.71	
+          chrome: "94.0.4606.71"
 
     steps:
     - uses: actions/checkout@v3
