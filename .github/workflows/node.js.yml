@@ -33,10 +33,10 @@ jobs:
     - run: npm run build --if-present
   
     - uses: actions/upload-artifact@v3
-    with:
-      name: build-folder
-      path: |
-        dist
+      with:
+        name: build-folder
+        path: |
+          dist
 
   ci-linter:
     runs-on: ubuntu-latest
