@@ -84,8 +84,8 @@ jobs:
     strategy:
       matrix:
         include:
-        - cypress_container: "cypress/browsers:node16.14.0-slim-chrome99-ff97"
-          firefox_version: 97.0.1
+        - cypress_container: "cypress/browsers:node14.17.0-chrome91-ff89"
+          firefox_version: 89.0.2
         - cypress_container: "cypress/browsers:node16.5.0-chrome94-ff93"
           firefox_version: 93.0
 
@@ -121,11 +121,10 @@ jobs:
     strategy:
       matrix:
         include:
-        - cypress_container: "cypress/browsers:node16.14.0-slim-chrome99-ff97"
-          chrome_version: 99.0.4844.51
+        - cypress_container: "cypress/browsers:node14.17.0-chrome91-ff89"
+          chrome_version: 91.0.4472.114
         - cypress_container: "cypress/browsers:node16.5.0-chrome94-ff93"
           chrome_version: 94.0.4606.71
-        cypress_container: ["cypress/browsers:node16.14.0-slim-chrome99-ff97", "cypress/browsers:node16.5.0-chrome94-ff93"]
 
     steps:
     - uses: actions/checkout@v3
