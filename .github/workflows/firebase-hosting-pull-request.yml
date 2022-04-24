@@ -6,6 +6,8 @@ name: Deploy to Firebase Hosting on PR
 on:
   workflow_run:
       workflows: ["Node.js CI"]
+      types:
+        - completed
 
 jobs:
   build_and_preview:
@@ -28,4 +30,5 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VUE_GITHUB_ACTIONS_EXAMPLE }}'
+          channelId: preview
           projectId: vue-github-actions-example
