@@ -9,26 +9,25 @@ on:
       - master
 
 jobs:
-  on-success:
-    build_and_deploy:
-    if: '${{ github.event.workflow_run.conclusion == 'success' }}'
-      runs-on: ubuntu-latest
-      
-      steps:
-        - uses: actions/checkout@v2
+  build_and_deploy:
+  if: '${{ github.event.workflow_run.conclusion == 'success' }}'
+    runs-on: ubuntu-latest
 
-        - name: Download artifact
-          uses: dawidd6/action-download-artifact@v2
-          with:
-            workflow: node.js.yml
-            workflow_conclusion: success
-            pr: ${{github.event.pull_request.number}}
-            name: build-folder
-            path: dist/
+    steps:
+      - uses: actions/checkout@v2
 
-        - uses: FirebaseExtended/action-hosting-deploy@v0
-          with:
-            repoToken: '${{ secrets.GITHUB_TOKEN }}'
-            firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VUE_GITHUB_ACTIONS_EXAMPLE }}'
-            channelId: live
-            projectId: vue-github-actions-example
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: node.js.yml
+          workflow_conclusion: success
+          pr: ${{github.event.pull_request.number}}
+          name: build-folder
+          path: dist/
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VUE_GITHUB_ACTIONS_EXAMPLE }}'
+          channelId: live
+          projectId: vue-github-actions-example
