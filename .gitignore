@@ -26,3 +26,9 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# test output result files
+test-results.xml
+e2e-chrome-test-result.xml
+e2e-firefox-test-result.xml
+unit-test-result.xml
