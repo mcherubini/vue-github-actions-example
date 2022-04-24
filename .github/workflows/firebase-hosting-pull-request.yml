@@ -6,38 +6,27 @@ name: Deploy to Firebase Hosting on PR
 on:
   workflow_run:
       workflows: ["Node.js CI"]
-      types:
-        - completed
 
 jobs:
-  build_and_preview:
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+  on-success:
+    build_and_preview:
+      if: '${{ github.event.pull_request.head.repo.full_name == github.repository }} && ${{ github.event.workflow_run.conclusion == 'success' }}'
+      runs-on: ubuntu-latest
 
-      - name: Download artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          # Optional, GitHub token, a Personal Access Token with `public_repo` scope if needed
-          # Required, if artifact is from a different repo
-          # Required, if repo is private a Personal Access Token with `repo` scope is needed
-          # github_token: ${{secrets.GITHUB_TOKEN}}
-          # Required, workflow file name or ID
-          workflow: node.js.yml
-          # Optional, the status or conclusion of a completed workflow to search for
-          # Can be one of a workflow conclusion:
-          #   "failure", "success", "neutral", "cancelled", "skipped", "timed_out", "action_required"
-          # Or a workflow status:
-          #   "completed", "in_progress", "queued"
-          workflow_conclusion: success
-          # Optional, will get head commit SHA
-          pr: ${{github.event.pull_request.number}}
-          name: build-folder
-          path: dist/
+      steps:
+        - uses: actions/checkout@v2
 
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VUE_GITHUB_ACTIONS_EXAMPLE }}'
-          projectId: vue-github-actions-example
+        - name: Download artifact
+          uses: dawidd6/action-download-artifact@v2
+          with:
+            workflow: node.js.yml
+            workflow_conclusion: success
+            pr: ${{github.event.pull_request.number}}
+            name: build-folder
+            path: dist/
+
+        - uses: FirebaseExtended/action-hosting-deploy@v0
+          with:
+            repoToken: '${{ secrets.GITHUB_TOKEN }}'
+            firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VUE_GITHUB_ACTIONS_EXAMPLE }}'
+            projectId: vue-github-actions-example
