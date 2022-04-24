@@ -12,7 +12,6 @@ on:
 
 jobs:
   build_and_deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -29,7 +28,7 @@ jobs:
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.PAT_SECRET }}'
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VUE_GITHUB_ACTIONS_EXAMPLE }}'
           channelId: live
           projectId: vue-github-actions-example
