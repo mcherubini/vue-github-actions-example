@@ -28,7 +28,7 @@ jobs:
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.PAT_SECRET }}'
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VUE_GITHUB_ACTIONS_EXAMPLE }}'
           channelId: live
           projectId: vue-github-actions-example
